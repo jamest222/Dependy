@@ -13,8 +13,10 @@ namespace Dependy
     using System.Collections.Generic;
     using System.Linq;
 
+    using Dependy.Exceptions;
     using Dependy.Interfaces;
     using Dependy.Objects;
+    using Dependy.Resources;
 
     /// <summary>
     /// The dependy container.
@@ -62,7 +64,7 @@ namespace Dependy
             var typeRegistration = this.registrations.FirstOrDefault(r => r.Dependency == typeof(TDependency));
             if (typeRegistration == null)
             {
-                // throw exception
+                throw new DependyNotRegisteredException(string.Format(ExceptionMessages.NotRegistered, typeof(TDependency).Name));
             }
 
             return Activator.CreateInstance(typeRegistration.ResolveType);

@@ -9,6 +9,7 @@
 
 namespace Dependy.Tests
 {
+    using Dependy.Exceptions;
     using Dependy.Tests.TestFactories;
     using Dependy.Tests.TestInterfaces;
 
@@ -35,6 +36,20 @@ namespace Dependy.Tests
 
             // Assert.
             Assert.IsInstanceOf<AdminUserFactory>(result);
+        }
+
+        /// <summary>
+        /// The dependy container should throw exception when no dependency registration is found.
+        /// </summary>
+        [Test]
+        [ExpectedException(typeof(DependyNotRegisteredException))]
+        public void DependyContainerShouldThrowExceptionWhenNoDependencyRegistrationIsFound()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+
+            // Act.
+            var result = dependyContainer.Get<IUserFactory>();
         }
     }
 }

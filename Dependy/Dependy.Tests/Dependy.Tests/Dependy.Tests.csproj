@@ -47,8 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependyTests.cs" />
+    <Compile Include="DependyContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestClasses\AdminUser.cs" />
+    <Compile Include="TestClasses\GeneralUser.cs" />
+    <Compile Include="TestFactories\AdminUserFactory.cs" />
+    <Compile Include="TestFactories\GeneralUserFactory.cs" />
+    <Compile Include="TestInterfaces\IUserFactory.cs" />
+    <Compile Include="TestClasses\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

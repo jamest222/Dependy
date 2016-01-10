@@ -23,7 +23,7 @@ namespace Dependy.Interfaces
         /// <typeparam name="TResolve">
         /// Resolved type.
         /// </typeparam>
-        void Add<TDependency, TResolve>();
+        void Add<TDependency, TResolve>() where TResolve : TDependency;
 
         /// <summary>
         /// The get.

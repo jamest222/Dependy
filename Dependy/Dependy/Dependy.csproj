@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DependyContainer.cs" />
     <Compile Include="Interfaces\IDependyContainer.cs" />
+    <Compile Include="Objects\TypeRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

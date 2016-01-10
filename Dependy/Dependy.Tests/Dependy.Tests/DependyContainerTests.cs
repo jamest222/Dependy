@@ -9,6 +9,7 @@
 
 namespace Dependy.Tests
 {
+    using Dependy.Enumerations;
     using Dependy.Exceptions;
     using Dependy.Tests.TestFactories;
     using Dependy.Tests.TestInterfaces;
@@ -60,7 +61,7 @@ namespace Dependy.Tests
         {
             // Arrange.
             var dependyContainer = new DependyContainer();
-            dependyContainer.Add<IUserFactory, AdminUserFactory>();
+            dependyContainer.Add<IUserFactory, AdminUserFactory>(Lifecycle.Transient);
 
             // Act.
             var factoryOne = (AdminUserFactory)dependyContainer.Get<IUserFactory>();
@@ -78,7 +79,7 @@ namespace Dependy.Tests
         {
             // Arrange.
             var dependyContainer = new DependyContainer();
-            dependyContainer.Add<IUserFactory, AdminUserFactory>();
+            dependyContainer.Add<IUserFactory, AdminUserFactory>(Lifecycle.Singleton);
 
             // Act.
             var factoryOne = (AdminUserFactory)dependyContainer.Get<IUserFactory>();

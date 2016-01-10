@@ -13,6 +13,7 @@ namespace Dependy
     using System.Collections.Generic;
     using System.Linq;
 
+    using Dependy.Enumerations;
     using Dependy.Exceptions;
     using Dependy.Interfaces;
     using Dependy.Objects;
@@ -48,6 +49,25 @@ namespace Dependy
         public void Add<TDependency, TResolve>() where TResolve : TDependency
         {
             this.registrations.Add(new TypeRegistration { Dependency = typeof(TDependency), ResolveType = typeof(TResolve) });
+        }
+
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="lifecyle">
+        /// The lifecyle.
+        /// </param>
+        /// <typeparam name="TDependency">
+        /// The dependency type
+        /// </typeparam>
+        /// <typeparam name="TResolve">
+        /// The resolution type
+        /// </typeparam>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
+        public void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve : TDependency
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

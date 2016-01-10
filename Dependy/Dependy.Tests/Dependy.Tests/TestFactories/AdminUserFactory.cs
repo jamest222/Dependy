@@ -9,6 +9,8 @@
 
 namespace Dependy.Tests.TestFactories
 {
+    using System;
+
     using Dependy.Tests.TestClasses;
     using Dependy.Tests.TestInterfaces;
 
@@ -17,6 +19,19 @@ namespace Dependy.Tests.TestFactories
     /// </summary>
     public class AdminUserFactory : IUserFactory
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdminUserFactory"/> class.
+        /// </summary>
+        public AdminUserFactory()
+        {
+            this.FactoryGuid = Guid.NewGuid();
+        }
+
+        /// <summary>
+        /// Gets or sets the factory guid.
+        /// </summary>
+        public Guid FactoryGuid { get; set; }
+
         /// <summary>
         /// The get new user.
         /// </summary>

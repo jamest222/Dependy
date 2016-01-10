@@ -51,5 +51,41 @@ namespace Dependy.Tests
             // Act.
             var result = dependyContainer.Get<IUserFactory>();
         }
+
+        /// <summary>
+        /// The dependy container should support transient lifecycle.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldSupportTransientLifecycle()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, AdminUserFactory>();
+
+            // Act.
+            var factoryOne = (AdminUserFactory)dependyContainer.Get<IUserFactory>();
+            var factoryTwo = (AdminUserFactory)dependyContainer.Get<IUserFactory>();
+            
+            // Assert.
+            Assert.AreNotEqual(factoryOne.FactoryGuid, factoryTwo.FactoryGuid);
+        }
+
+        /// <summary>
+        /// The dependy container should support singleton lifecycle.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldSupportSingletonLifecycle()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, AdminUserFactory>();
+
+            // Act.
+            var factoryOne = (AdminUserFactory)dependyContainer.Get<IUserFactory>();
+            var factoryTwo = (AdminUserFactory)dependyContainer.Get<IUserFactory>();
+
+            // Assert.
+            Assert.AreEqual(factoryOne.FactoryGuid, factoryTwo.FactoryGuid);
+        }
     }
 }

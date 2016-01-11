@@ -25,7 +25,7 @@ namespace Dependy.Interfaces
         /// <typeparam name="TResolve">
         /// Resolved type.
         /// </typeparam>
-        void Add<TDependency, TResolve>() where TResolve : TDependency;
+        void Add<TDependency, TResolve>() where TResolve : class, TDependency;
 
         /// <summary>
         /// The add.
@@ -39,7 +39,7 @@ namespace Dependy.Interfaces
         /// <typeparam name="TResolve">
         /// Resolved type.
         /// </typeparam>
-        void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve : TDependency;
+        void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve: class, TDependency;
 
         /// <summary>
         /// The get.
@@ -50,6 +50,6 @@ namespace Dependy.Interfaces
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        object Get<TDependency>();
+        TDependency Get<TDependency>();
     }
 }

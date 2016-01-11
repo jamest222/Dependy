@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TypeRegistration.cs" company="James Taylor">
+// <copyright file="RegistrationBase.cs" company="James Taylor">
 //   James Taylor 2016
 // </copyright>
 // <summary>
@@ -14,7 +14,7 @@ namespace Dependy.Objects
     /// <summary>
     /// The type registration.
     /// </summary>
-    internal class TypeRegistration
+    internal abstract class RegistrationBase
     {
         /// <summary>
         /// Gets or sets the dependency.

@@ -27,14 +27,14 @@ namespace Dependy
         /// <summary>
         /// The registrations.
         /// </summary>
-        private readonly List<TypeRegistration> registrations;
+        private readonly List<IRegistration> registrations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DependyContainer"/> class.
         /// </summary>
         public DependyContainer()
         {
-            this.registrations = new List<TypeRegistration>();
+            this.registrations = new List<IRegistration>();
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace Dependy
         /// <typeparam name="TResolve">
         /// The resolution type
         /// </typeparam>
-        public void Add<TDependency, TResolve>() where TResolve : TDependency
+        public void Add<TDependency, TResolve>() where TResolve : class, TDependency
         {
-            this.registrations.Add(new TypeRegistration { Dependency = typeof(TDependency), ResolveType = typeof(TResolve) });
+            this.registrations.Add(new TransientRegistration<TResolve> { Dependency = typeof(TDependency), ResolveType = typeof(TResolve) });
         }
 
         /// <summary>
@@ -63,11 +63,16 @@ namespace Dependy
         /// <typeparam name="TResolve">
         /// The resolution type
         /// </typeparam>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        public void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve : TDependency
+        public void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve : class, TDependency
         {
-            throw new NotImplementedException();
+            if (lifecyle == Lifecycle.Transient)
+            {
+                this.Add<TDependency, TResolve>();
+            }
+            else
+            {
+                this.registrations.Add(new SingletonRegistration<TResolve> { Dependency = typeof(TDependency), ResolveType = typeof(TResolve) });
+            }
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace Dependy
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        public object Get<TDependency>()
+        public TDependency Get<TDependency>()
         {
             var typeRegistration = this.registrations.FirstOrDefault(r => r.Dependency == typeof(TDependency));
             if (typeRegistration == null)
@@ -87,7 +92,7 @@ namespace Dependy
                 throw new DependyNotRegisteredException(string.Format(ExceptionMessages.NotRegistered, typeof(TDependency).Name));
             }
 
-            return Activator.CreateInstance(typeRegistration.ResolveType);
+            return (TDependency)typeRegistration.GetInstance();
         }
     }
 }

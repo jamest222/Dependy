@@ -40,9 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependyContainer.cs" />
+    <Compile Include="Enumerations\Lifecycle.cs" />
     <Compile Include="Exceptions\DependyNotRegisteredException.cs" />
     <Compile Include="Interfaces\IDependyContainer.cs" />
-    <Compile Include="Objects\TypeRegistration.cs" />
+    <Compile Include="Interfaces\IRegistration.cs" />
+    <Compile Include="Objects\SingletonRegistration.cs" />
+    <Compile Include="Objects\RegistrationBase.cs" />
+    <Compile Include="Objects\TransientRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>

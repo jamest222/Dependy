@@ -12,7 +12,6 @@ namespace Dependy
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
 
     using Dependy.Enumerations;
     using Dependy.Exceptions;
@@ -188,7 +187,6 @@ namespace Dependy
                     parameters.AddRange(constructorInfo[0].GetParameters()
                         .Select(param => this.Get(param.ParameterType)));
                 }
-
             }
 
             return parameters.ToArray();

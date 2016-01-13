@@ -10,10 +10,7 @@
 namespace Dependy.Factories
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-
-    using Dependy.Objects;
 
     /// <summary>
     /// The instance factory.

@@ -9,10 +9,6 @@
 
 namespace Dependy.Objects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     using Dependy.Enumerations;
     using Dependy.Factories;
     using Dependy.Interfaces;

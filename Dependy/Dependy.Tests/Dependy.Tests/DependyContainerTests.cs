@@ -13,6 +13,7 @@ namespace Dependy.Tests
     using Dependy.Exceptions;
     using Dependy.Tests.TestFactories;
     using Dependy.Tests.TestInterfaces;
+    using Dependy.Tests.TestServices;
 
     using NUnit.Framework;
 
@@ -34,6 +35,23 @@ namespace Dependy.Tests
 
             // Act.
             var result = dependyContainer.Get<IUserFactory>();
+
+            // Assert.
+            Assert.IsInstanceOf<AdminUserFactory>(result);
+        }
+
+        /// <summary>
+        /// The dependy container should be able to register and resolve dynamically.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldBeAbleToAddAndGetAdminUserFactoryDynamically()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, AdminUserFactory>();
+
+            // Act.
+            var result = dependyContainer.Get(typeof(IUserFactory));
 
             // Assert.
             Assert.IsInstanceOf<AdminUserFactory>(result);
@@ -87,6 +105,41 @@ namespace Dependy.Tests
 
             // Assert.
             Assert.AreEqual(factoryOne.FactoryGuid, factoryTwo.FactoryGuid);
+        }
+
+        /// <summary>
+        /// The dependy container should support parameter constructors automatically.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldSupportParameterConstructorsAutomatically()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IHelpServiceStub, HelpServiceStub>();
+            dependyContainer.Add<IUserServiceStub, UserServiceStub>();
+            dependyContainer.Add<IUserFactory, GeneralUserFactory>();
+
+            // Act.
+            var result = dependyContainer.Get<IUserFactory>();
+
+            // Assert.
+            Assert.IsInstanceOf<GeneralUserFactory>(result);
+        }
+
+        /// <summary>
+        /// The dependy container should throw dependy not registered exception if dependency not found.
+        /// </summary>
+        [Test]
+        [ExpectedException(typeof(DependyNotRegisteredException))]
+        public void DependyContainerShouldThrowDependyNotRegisteredExceptionIfDependencyNotFound()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserServiceStub, UserServiceStub>();
+            dependyContainer.Add<IUserFactory, GeneralUserFactory>();
+
+            // Act.
+            dependyContainer.Get<IUserFactory>();
         }
     }
 }

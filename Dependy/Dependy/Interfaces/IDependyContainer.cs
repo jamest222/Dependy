@@ -9,6 +9,8 @@
 
 namespace Dependy.Interfaces
 {
+    using System;
+
     using Dependy.Enumerations;
 
     /// <summary>
@@ -51,5 +53,16 @@ namespace Dependy.Interfaces
         /// The <see cref="object"/>.
         /// </returns>
         TDependency Get<TDependency>();
+
+        /// <summary>
+        /// The get.
+        /// </summary>
+        /// <param name="dependencyType">
+        /// The dependency type.
+        /// </param>
+        /// <returns>
+        /// The <see cref="object"/>.
+        /// </returns>
+        object Get(Type dependencyType);
     }
 }

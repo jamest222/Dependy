@@ -18,6 +18,31 @@ namespace Dependy.Tests.TestFactories
     public class GeneralUserFactory : IUserFactory
     {
         /// <summary>
+        /// The user service stub.
+        /// </summary>
+        private readonly IUserServiceStub userServiceStub;
+
+        /// <summary>
+        /// The help service stub.
+        /// </summary>
+        private readonly IHelpServiceStub helpServiceStub;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeneralUserFactory"/> class.
+        /// </summary>
+        /// <param name="userServiceStub">
+        /// The user service stub.
+        /// </param>
+        /// <param name="helpServiceStub">
+        /// The help service stub.
+        /// </param>
+        public GeneralUserFactory(IUserServiceStub userServiceStub, IHelpServiceStub helpServiceStub)
+        {
+            this.userServiceStub = userServiceStub;
+            this.helpServiceStub = helpServiceStub;
+        }
+
+        /// <summary>
         /// The get new user.
         /// </summary>
         /// <param name="firstName">

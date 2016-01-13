@@ -10,8 +10,10 @@
 namespace Dependy.Interfaces
 {
     using System;
+    using System.Collections.Generic;
 
     using Dependy.Enumerations;
+    using Dependy.Objects;
 
     /// <summary>
     /// The Registration interface.
@@ -29,16 +31,19 @@ namespace Dependy.Interfaces
         Type ResolveType { get; set; }
 
         /// <summary>
-        /// Gets or sets the lifecycle.
+        /// Gets the lifecycle.
         /// </summary>
         Lifecycle Lifecycle { get; }
 
         /// <summary>
         /// The get instance.
         /// </summary>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
         /// <returns>
         /// The <see cref="IRegistration"/>.
         /// </returns>
-        object GetInstance();
+        object GetInstance(IEnumerable<ConstructedObject> parameters);
     }
 }

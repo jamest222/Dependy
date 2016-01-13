@@ -53,8 +53,12 @@
     <Compile Include="TestClasses\GeneralUser.cs" />
     <Compile Include="TestFactories\AdminUserFactory.cs" />
     <Compile Include="TestFactories\GeneralUserFactory.cs" />
+    <Compile Include="TestServices\HelpServiceStub.cs" />
+    <Compile Include="TestInterfaces\IHelpServiceStub.cs" />
+    <Compile Include="TestInterfaces\IUserServiceStub.cs" />
     <Compile Include="TestInterfaces\IUserFactory.cs" />
     <Compile Include="TestClasses\User.cs" />
+    <Compile Include="TestServices\UserServiceStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

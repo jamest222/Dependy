@@ -10,8 +10,11 @@
 namespace Dependy.Objects
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using Dependy.Enumerations;
+    using Dependy.Factories;
     using Dependy.Interfaces;
 
     /// <summary>
@@ -42,12 +45,15 @@ namespace Dependy.Objects
         /// <summary>
         /// The get instance.
         /// </summary>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
         /// <returns>
         /// The <see cref="IRegistration"/>.
         /// </returns>
-        public object GetInstance()
+        public object GetInstance(IEnumerable<ConstructedObject> parameters)
         {
-            return this.createdObject ?? (this.createdObject = (TResolved)Activator.CreateInstance(typeof(TResolved)));
+            return this.createdObject ?? (this.createdObject = InstanceFactory.CreateInstance<TResolved>(parameters));
         }
     }
 }

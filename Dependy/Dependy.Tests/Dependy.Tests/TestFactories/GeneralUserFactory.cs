@@ -9,6 +9,8 @@
 
 namespace Dependy.Tests.TestFactories
 {
+    using System;
+
     using Dependy.Tests.TestClasses;
     using Dependy.Tests.TestInterfaces;
 
@@ -40,7 +42,13 @@ namespace Dependy.Tests.TestFactories
         {
             this.userServiceStub = userServiceStub;
             this.helpServiceStub = helpServiceStub;
+            this.FactoryGuid = Guid.NewGuid();
         }
+
+        /// <summary>
+        /// Gets the factory guid.
+        /// </summary>
+        public Guid FactoryGuid { get; private set; }
 
         /// <summary>
         /// The get new user.

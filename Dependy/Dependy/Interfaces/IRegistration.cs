@@ -31,6 +31,11 @@ namespace Dependy.Interfaces
         Type ResolveType { get; set; }
 
         /// <summary>
+        /// Gets or sets the dependency injector.
+        /// </summary>
+        Injector DependencyInjector { get; set; }
+
+        /// <summary>
         /// Gets the lifecycle.
         /// </summary>
         Lifecycle Lifecycle { get; }
@@ -44,6 +49,6 @@ namespace Dependy.Interfaces
         /// <returns>
         /// The <see cref="IRegistration"/>.
         /// </returns>
-        object GetInstance(IEnumerable<ConstructedObject> parameters);
+        object GetInstance(object[] parameters);
     }
 }

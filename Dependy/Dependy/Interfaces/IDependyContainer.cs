@@ -12,6 +12,7 @@ namespace Dependy.Interfaces
     using System;
 
     using Dependy.Enumerations;
+    using Dependy.Objects;
 
     /// <summary>
     /// The DependyContainer interface.
@@ -41,7 +42,38 @@ namespace Dependy.Interfaces
         /// <typeparam name="TResolve">
         /// Resolved type.
         /// </typeparam>
-        void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve: class, TDependency;
+        void Add<TDependency, TResolve>(Lifecycle lifecyle) where TResolve : class, TDependency;
+
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="dependencyInjector">
+        /// The dependency injector.
+        /// </param>
+        /// <typeparam name="TDependency">
+        /// Dependency type.
+        /// </typeparam>
+        /// <typeparam name="TResolve">
+        /// Resolved type.
+        /// </typeparam>
+        void Add<TDependency, TResolve>(Injector dependencyInjector) where TResolve : class, TDependency;
+
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="dependencyInjector">
+        /// The dependency injector.
+        /// </param>
+        /// <param name="lifecycle">
+        /// The lifecycle.
+        /// </param>
+        /// <typeparam name="TDependency">
+        /// Dependency type.
+        /// </typeparam>
+        /// <typeparam name="TResolve">
+        /// Resolved type.
+        /// </typeparam>
+        void Add<TDependency, TResolve>(Injector dependencyInjector, Lifecycle lifecycle) where TResolve : class, TDependency;
 
         /// <summary>
         /// The get.

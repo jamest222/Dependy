@@ -51,7 +51,7 @@ namespace Dependy.Objects
         /// <returns>
         /// The <see cref="IRegistration"/>.
         /// </returns>
-        public object GetInstance(IEnumerable<ConstructedObject> parameters)
+        public object GetInstance(object[] parameters)
         {
             return this.createdObject ?? (this.createdObject = InstanceFactory.CreateInstance<TResolved>(parameters));
         }

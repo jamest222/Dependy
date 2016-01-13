@@ -25,5 +25,10 @@ namespace Dependy.Objects
         /// Gets or sets the resolve type.
         /// </summary>
         public Type ResolveType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dependency injector.
+        /// </summary>
+        public Injector DependencyInjector { get; set; }
     }
 }

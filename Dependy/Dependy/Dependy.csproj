@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IDependyContainer.cs" />
     <Compile Include="Interfaces\IRegistration.cs" />
     <Compile Include="Objects\ConstructedObject.cs" />
+    <Compile Include="Objects\Injector.cs" />
     <Compile Include="Objects\SingletonRegistration.cs" />
     <Compile Include="Objects\RegistrationBase.cs" />
     <Compile Include="Objects\TransientRegistration.cs" />

@@ -28,9 +28,9 @@ namespace Dependy.Tests.TestFactories
         }
 
         /// <summary>
-        /// Gets or sets the factory guid.
+        /// Gets the factory guid.
         /// </summary>
-        public Guid FactoryGuid { get; set; }
+        public Guid FactoryGuid { get; private set; }
 
         /// <summary>
         /// The get new user.

@@ -32,14 +32,19 @@ namespace Dependy.Factories
         /// <returns>
         /// The <see cref="TResolve"/>.
         /// </returns>
-        internal static TResolve CreateInstance<TResolve>(IEnumerable<ConstructedObject> parameters)
+        internal static TResolve CreateInstance<TResolve>(object[] parameters)
         {
+            var resolvedInstance = default(TResolve);
             if (parameters.Any())
             {
-                return (TResolve)Activator.CreateInstance(typeof(TResolve), parameters.Select(p => p.Object).ToArray());
+                resolvedInstance = (TResolve)Activator.CreateInstance(typeof(TResolve), parameters);
+            }
+            else
+            {
+                resolvedInstance = (TResolve)Activator.CreateInstance(typeof(TResolve));
             }
 
-            return (TResolve)Activator.CreateInstance(typeof(TResolve));
+            return resolvedInstance;
         }
     }
 }

@@ -77,6 +77,61 @@ namespace Dependy
         }
 
         /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="dependencyInjector">
+        /// The dependency injector.
+        /// </param>
+        /// <typeparam name="TDependency">
+        /// The dependency type.
+        /// </typeparam>
+        /// <typeparam name="TResolve">
+        /// The resolution type.
+        /// </typeparam>
+        public void Add<TDependency, TResolve>(Injector dependencyInjector) where TResolve : class, TDependency
+        {
+            this.registrations.Add(new TransientRegistration<TResolve>
+                                       {
+                                           Dependency = typeof(TDependency), 
+                                           ResolveType = typeof(TResolve), 
+                                           DependencyInjector = dependencyInjector
+                                       });
+        }
+
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="dependencyInjector">
+        /// The dependency injector.
+        /// </param>
+        /// <param name="lifecycle">
+        /// The lifecycle.
+        /// </param>
+        /// <typeparam name="TDependency">
+        /// The dependency type.
+        /// </typeparam>
+        /// <typeparam name="TResolve">
+        /// The resolution type.
+        /// </typeparam>
+        public void Add<TDependency, TResolve>(Injector dependencyInjector, Lifecycle lifecycle) where TResolve : class, TDependency
+        {
+            if (lifecycle == Lifecycle.Transient)
+            {
+                this.Add<TDependency, TResolve>(dependencyInjector);
+            }
+            else
+            {
+                this.registrations.Add(
+                    new SingletonRegistration<TResolve>
+                        {
+                            Dependency = typeof(TDependency),
+                            ResolveType = typeof(TResolve),
+                            DependencyInjector = dependencyInjector
+                        });
+            }
+        }
+
+        /// <summary>
         /// The get.
         /// </summary>
         /// <typeparam name="TDependency">
@@ -118,24 +173,25 @@ namespace Dependy
         /// <returns>
         /// The <see cref="IEnumerable"/>.
         /// </returns>
-        private IEnumerable<ConstructedObject> RetrieveRegisteredDependencies(IRegistration typeRegistration)
+        private object[] RetrieveRegisteredDependencies(IRegistration typeRegistration)
         {
-            var constructedObjects = new List<ConstructedObject>();
-            var constructorInfo = typeRegistration.ResolveType.GetConstructors();
-            if (constructorInfo.Length > 0)
+            var parameters = new List<object>();
+            if (typeRegistration.DependencyInjector != null)
             {
-                foreach (var param in constructorInfo[0].GetParameters())
+                parameters.AddRange(typeRegistration.DependencyInjector.DependencyParameters);
+            }
+            else
+            {
+                var constructorInfo = typeRegistration.ResolveType.GetConstructors();
+                if (constructorInfo.Length > 0)
                 {
-                    constructedObjects.Add(
-                        new ConstructedObject
-                            {
-                                ObjectType = param.ParameterType,
-                                Object = this.Get(param.ParameterType)
-                            });
+                    parameters.AddRange(constructorInfo[0].GetParameters()
+                        .Select(param => this.Get(param.ParameterType)));
                 }
+
             }
 
-            return constructedObjects;
+            return parameters.ToArray();
         }
 
         /// <summary>

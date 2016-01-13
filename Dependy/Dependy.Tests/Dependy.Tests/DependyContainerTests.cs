@@ -11,6 +11,7 @@ namespace Dependy.Tests
 {
     using Dependy.Enumerations;
     using Dependy.Exceptions;
+    using Dependy.Objects;
     using Dependy.Tests.TestFactories;
     using Dependy.Tests.TestInterfaces;
     using Dependy.Tests.TestServices;
@@ -140,6 +141,65 @@ namespace Dependy.Tests
 
             // Act.
             dependyContainer.Get<IUserFactory>();
+        }
+
+        /// <summary>
+        /// The dependy container should accept injector to resolve dependencies.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldAcceptInjectorToResolveDependencies()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, GeneralUserFactory>(new Injector(new UserServiceStub(), new HelpServiceStub()));
+
+            // Act.
+            var result = dependyContainer.Get<IUserFactory>();
+
+            // Assert.
+            Assert.IsInstanceOf<GeneralUserFactory>(result);
+        }
+
+        /// <summary>
+        /// The dependy container should accept injector to resolve dependencies.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldAcceptInjectorToResolveDependenciesAndSpecifyLifecycle()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, GeneralUserFactory>(new Injector(new UserServiceStub(), new HelpServiceStub()), Lifecycle.Singleton);
+
+            // Act.
+            var result = dependyContainer.Get<IUserFactory>();
+            var result2 = dependyContainer.Get<IUserFactory>();
+            var castedResult = (GeneralUserFactory)result;
+            var castedResult2 = (GeneralUserFactory)result2;
+
+            // Assert.
+            Assert.IsInstanceOf<GeneralUserFactory>(result);
+            Assert.AreEqual(castedResult.FactoryGuid, castedResult2.FactoryGuid);
+        }
+
+        /// <summary>
+        /// The dependy container should accept injector to resolve dependencies.
+        /// </summary>
+        [Test]
+        public void DependyContainerShouldAcceptInjectorToResolveDependenciesAndSpecifyTransientLifecycle()
+        {
+            // Arrange.
+            var dependyContainer = new DependyContainer();
+            dependyContainer.Add<IUserFactory, GeneralUserFactory>(new Injector(new UserServiceStub(), new HelpServiceStub()), Lifecycle.Transient);
+
+            // Act.
+            var result = dependyContainer.Get<IUserFactory>();
+            var result2 = dependyContainer.Get<IUserFactory>();
+            var castedResult = (GeneralUserFactory)result;
+            var castedResult2 = (GeneralUserFactory)result2;
+
+            // Assert.
+            Assert.IsInstanceOf<GeneralUserFactory>(result);
+            Assert.AreNotEqual(castedResult.FactoryGuid, castedResult2.FactoryGuid);
         }
     }
 }

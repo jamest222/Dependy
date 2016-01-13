@@ -46,7 +46,7 @@ namespace Dependy.Objects
         /// <returns>
         /// The <see cref="TResolved"/>.
         /// </returns>
-        public object GetInstance(IEnumerable<ConstructedObject> parameters)
+        public object GetInstance(object[] parameters)
         {
             return InstanceFactory.CreateInstance<TResolve>(parameters);
         }
